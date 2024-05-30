@@ -1,6 +1,6 @@
 ## TaskManagerIO scheduling and event based library for Arudino and mbed
 
-Dave Cherry / TheCodersCorner.com make this library available for you to use. It takes me significant effort to keep all my libraries current and working on a wide range of boards. Please consider making at least a one off donation via the sponsor button if you find it useful. In forks, please keep text to here intact.
+Dave Cherry / TheCodersCorner.com made this library available for you to use. It takes me significant effort to keep all my libraries current and working on a wide range of boards. Please consider making at least a one off donation via the sponsor button if you find it useful. In forks, please keep text to here intact.
 
 TaskManagerIO is an evolution of the task management class that was originally situated in IoAbstraction. It is backed by a simple queue that supports, immediate queuing, scheduled tasks, and events. It is safe to add tasks from another thread, and safe to trigger events from interrupts. However, your tasks are shielded from threads and interrupts making your code simpler.
 
@@ -16,6 +16,8 @@ Below, we list the main features of TaskManagerIO:
 
 ## Getting started with taskManager
 
+Youtube guide that goes through most important concepts: https://youtu.be/N1ILzBfu5Zc
+
 Here we just demonstrate the most basic usage. Take a look at the examples for more complex cases, or the reference documentation that's built from the source.
 
 Include the header file:
@@ -28,14 +30,14 @@ In the setup method, add an function callback that gets fired once in the future
 
 ```
 	// Create a task scheduled once every 100 miliis
-	taskid_t taskId = taskManager.scheduleOnce(100, [] {
+	taskid_t taskId = taskManager.schedule(repeatMillis(100), [] {
 		// some work to be done.
 	});
 	
 	// Create a task that's scheduled every second
-	taskid_t taskId = taskManager.scheduleFixedRate(1, [] {
+	taskid_t taskId = taskManager.schedule(repeatSeconds(1), [] {
 		// work to be done.
-	}, TIME_SECONDS);
+	});
 ```
 
 From 1.2 onwards: On ESP8266, ESP32, all mbed boards, and most 32 bit Arduino boards you can also *enable* argument capture in lambda expressions. By default, the feature is off because it is quite a heavy feature that many may never use.
@@ -46,9 +48,9 @@ An example of this usage follows:
 
 ```
     int capturedValue = 42;
-    taskManager.scheduleFixedRate(2, [capturedValue]() {
+    taskManager.schedule(repeatSeconds(2), [capturedValue]() {
         log("Execution with captured value = ", capturedValue);
-    }, TIME_SECONDS);
+    });
 
 ```
 
@@ -68,8 +70,17 @@ You can also create a class that extends from `Executable` and schedule that ins
     MyClassToSchedule myClass;
     
     // Register with taskManager for once a second execution
-    taskManager.scheduleFixedRate(1, &myClass, TIME_SECONDS);
+    taskManager.schedule(repeatSeconds(1), &myClass);
 ```
+
+The helper time functions that can be passed as the first time parameter are:
+
+* `onceMicros(N)` run once in N microseconds
+* `onceMillis(N)` run once in N milliseconds
+* `onceSeconds(N)` run once in N seconds
+* `repeatMicros(N)` repeatedly run in N microseconds
+* `repeatMillis(N)` repeatedly run in N milliseconds
+* `repeatSeconds(N)` repeatedly run in N seconds
 
 Then in the loop method you need to call: 
 
@@ -108,10 +119,12 @@ Arduino Only - If you want to use the legacy interrupt marshalling support inste
 * [TaskManagerIO documentation pages](https://www.thecoderscorner.com/products/arduino-libraries/taskmanager-io/)
 * [TaskManagerIO reference documentation](https://www.thecoderscorner.com/ref-docs/taskmanagerio/html)
 
-There is a forum where questions can be asked, but the rules of engagement are: **this is my hobby, I make it available because it helps others**. Don't expect immediate answers, make sure you've recreated the problem in a simple sketch that you can send to me. Please consider making at least a one time donation using the sponsor link above before using the forum.
+You can ask questions either in the discussions section of this repo, or using the Arduino forum. We generally answer most questions, but the rules of engagement are: **this is my hobby, I make it available because it helps others**. Don't expect immediate answers, make sure you've recreated the problem in a simple sketch that you can send to me. Please consider making at least a one time donation using the sponsor link if we do help you out.
 
-* [TCC Libraries community discussion forum](https://www.thecoderscorner.com/jforum/)
-* I also monitor the Arduino forum [https://forum.arduino.cc/], Arduino related questions can be asked there too.
+* [discussions section of the Task Manager repo](https://github.com/davetcc/TaskManagerIO/discussions)
+* [Arduino discussion forum](https://forum.arduino.cc/) where questions can be asked, please tag me using `@davetcc`.
+* [Legacy discussion forum probably to be made read only soon](https://www.thecoderscorner.com/jforum/).
+
 
 ### Known working and supported boards:
 

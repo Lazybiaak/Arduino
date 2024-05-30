@@ -8,11 +8,15 @@ Why? Because on many embedded boards std lib is simply not available, and on oth
 
 Btree list has been expanded upon and broken out from IoAbstraction, as such it has been battle tested in IoAbstraction and TcMenu. Btree list unlike CircularBuffer should not be used across threads. It is safe within tasks on TaskManager.
 
-There is a forum where questions can be asked, but the rules of engagement are: **this is my hobby, I make it available because it helps others**. Don't expect immediate answers, make sure you've recreated the problem in a simple sketch that you can send to me. Please consider making at least a one time donation using the sponsor link above before using the forum. 
+## Questions and more documentation
 
-* [TCC Libraries community discussion forum](https://www.thecoderscorner.com/jforum/)
-* I also monitor the Arduino forum [https://forum.arduino.cc/], Arduino related questions can be asked there too.
-* [More documentation on the thecoderscorner site](https://www.thecoderscorner.com/products/arduino-libraries/simple-collections/)
+You can ask questions either in the discussions section of this repo, or using the Arduino forum. We generally answer most questions, but the rules of engagement are: **this is my hobby, I make it available because it helps others**. Don't expect immediate answers, make sure you've recreated the problem in a simple sketch that you can send to me. Please consider making at least a one time donation using the sponsor link if we do help you out.
+
+* Discussions section of this git repo (available from top menu of github page).
+* [Arduino discussion forum](https://forum.arduino.cc/) where questions can be asked, please tag me using `@davetcc`.
+* [Legacy discussion forum probably to be made read only soon](https://www.thecoderscorner.com/jforum/).
+* [Documentation on TheCodersCorner website](https://www.thecoderscorner.com/products/arduino-libraries/simple-collections/)
+* [Library compatibility matrix](https://www.thecoderscorner.com/products/arduino-libraries/)
 
 ## Installation for Arduino IDE
 
@@ -188,21 +192,6 @@ The queue is read back as normal, but we get back a pointer.
     }
 
 In short, you should never queue an object until it is fully and atomically ready. Again, just like with circular buffers themselves, the memory pool will wrap if the writer gets too far ahead of the reader.
-
-## Platforms known to work
-
-The following platforms are ones that we test with, they are generally the best choices to use with this library.
-
-| Platform | Board / Arch   | State            | Thread safety   |
-|----------|----------------|------------------|-----------------|
-| Arduino  | Nano 33 BLE    | Examples tested  | CAS             |         
-| Arduino  | Uno, MEGA, AVR | Examples tested  | Atomic          |
-| Arduino  | SAMD MKR1300   | Examples tested  | Atomic          |
-| Arduino  | SAMD Seeed     | Examples tested  | Atomic          |        
-| Arduino  | STM32Duino     | Examples tested  | CAS if possible |  
-| Arduino  | ESP8266        | Examples tested  | Atomic          |
-| Arduino  | ESP32          | Examples tested  | CAS             |
-| mbed     | STM32F4        | mbed example run | CAS             |
 
 Thread safety key:
 

@@ -7,6 +7,11 @@
 #ifndef TASKMANAGERIO_PLATFORMDETERMINATION_H
 #define TASKMANAGERIO_PLATFORMDETERMINATION_H
 
+/**
+ * @file TaskPlatformDeps.h
+ * @brief provides the platform specific configuration for task manager
+ */
+
 class TimerTask;
 
 // You can add your own local definitions header file here, this enables you to adjust build flags in environments
@@ -40,7 +45,8 @@ class TimerTask;
     defined(ARDUINO_EDGE_CONTROL) || \
     defined(ARDUINO_NICLA) || \
     defined(ARDUINO_NICLA_VISION) || \
-    defined(TMIOA_FORCE_ARDUINO_MBED)
+    defined(TMIOA_FORCE_ARDUINO_MBED) || \
+    defined(ARDUINO_ARCH_MBED)
 # define IOA_USE_ARDUINO
 # define ARDUINO_MBED_MODE
 # include "Arduino.h"
